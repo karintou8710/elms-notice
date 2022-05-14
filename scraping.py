@@ -16,17 +16,19 @@ class ScrapeElms:
         ・ログインやMoodleのお知らせ情報をスクレイプする
         ・すべてインスタンス変数とし，クラス変数はない
 
-    Attributes:
-        ID (string) : user id
-        PASSWORD (string) : user password
-        time_stamp_list (list) : お知らせ一覧の時間リスト(datetime)
-        driver (webdriver) : Chrome driver，webのスクレイピング操作に用いる
+    Params:
+        ID : user id (string)
+        PASSWORD : user password (string)
+        time_stamp_list : お知らせ一覧の時間リスト(list)(datetime)
+        title_list : お知らせ一覧のタイトルリスト (list)(string)
+        driver : Chrome driver(webdriver)，webのスクレイピング操作に用いる
     '''
     def __init__(self, ID, PASSWORD):
         # initalize
         self.ID = ID
         self.PASSWORD = PASSWORD
         self.time_stamp_list = []
+        self.title_list = []
 
         # start driver with headless mode
         options = webdriver.ChromeOptions()
@@ -67,18 +69,16 @@ class ScrapeElms:
         # login_button.click() #なぜかチャットBOTの画像が押されてしまうのでEnterに変更
 
     def getTimeList(self):
-        '''お知らせ一覧を取得する関数
+        '''お知らせ一覧の時間を返す関数
 
         Returns:
-            time_stamp_list (list) : お知らせ一覧の時間リスト/降順(datetime)
-
+            time_stamp_list : 時間リスト(降順)(list(datetime))
         '''
         self.page_wait("result_paging_btn")  # wait for page loading
         list_length = len(
             self.driver.find_elements_by_class_name(
                 "result-list"))  # get how many elements there are
 
-        print("################# list_length", list_length)
         for i in range(1, list_length + 1):
             xpath = "//*[@id='information']/div/div[2]/div[{}]/div[2]/span[1]".format(
                 i)
@@ -91,9 +91,32 @@ class ScrapeElms:
 
         return self.time_stamp_list
 
+    def getTitleList(self):
+        '''お知らせ一覧のタイトルを返す関数
+
+        Returns:
+            title_list : タイトルリスト(降順)(list(string))
+        '''
+        self.page_wait("result_paging_btn")  # wait for page loading
+        list_length = len(
+            self.driver.find_elements_by_class_name(
+                "result-list"))  # get how many elements there are
+
+        for i in range(1, list_length + 1):
+            xpath = "//*[@id='information']/div/div[2]/div[{}]/div[1]/span[2]".format(
+                i)
+            title = self.driver.find_element_by_xpath(xpath)  # find xpath
+            inner_text = title.text  # get text in tag
+            print(inner_text)
+            self.title_list.append(inner_text)  # add list
+
+        return self.title_list
+
 
 if __name__ == "__main__":
     elms = ScrapeElms("{ユーザーID}", "{パスワード}")
     elms.login()
     times_list = elms.getTimeList()
-    print("\n################ times_list", times_list)
+    print("\n################\n times_list", times_list)
+    # t_list = elms.getTitleList()
+    # print("\n################\n times_list", t_list)
