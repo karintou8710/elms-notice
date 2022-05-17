@@ -152,12 +152,22 @@ class ScrapeElms:
     def close_browser(self):
         self.driver.quit()
 
-if __name__ == "__main__":
-    elms = ScrapeElms("{ユーザーID}", "{パスワード}")
-    elms.login()
-    elms.choose_dropdown_list(1) #グループに関するお知らせ
-    times_list = elms.get_time_list()
-    print("\n############ 時間一覧 ############\n times_list", times_list)
-    t_list = elms.get_title_list()
-    print("\n############ タイトル一覧 ############\n title_list", t_list)
-    elms.close_browser()
+    def count_messege(self):
+        '''1時間以内に投稿されたお知らせの数を返す処理
+        
+        Returns
+        -------
+        count_num : int
+            1時間以内に投稿されたお知らせの数
+
+        note:
+            time_stamp_listを呼びすぎているので冗長な気がする．
+        '''
+        self.time_stamp_list = self.get_time_list()
+        count_num = 0 # 初期カウント数
+        cor_t = datetime.datetime.now() #現在時刻取得
+        for i in range(len(self.time_stamp_list)):
+            if  cor_t - datetime.timedelta(hours=1) < self.time_stamp_list[i] :  #一時間前と大小比較
+                count_num += 1
+
+        return count_num 
