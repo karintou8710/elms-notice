@@ -10,9 +10,24 @@ line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
 def main():
+    '''
+    Parameters
+    ----------
+    user_id : string
+        LINEのユーザーID
+    elms_id : string
+        ELMSの学生ID
+    elms_password : string
+        ELMSのパスワード
+    num_of_post : int
+        1時間以内に投稿された数
+    error_message : string
+        スクレイピング時に発生したエラーメッセージ 
+    '''
     user_id = settings.LINE_USER_ID 
     elms_id = settings.ELMS_STUDENT_ID
     elms_password = settings.ELMS_PASSWORD
+    num_of_post = ""
     error_message = ""
     
     try:
