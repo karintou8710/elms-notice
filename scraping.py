@@ -152,6 +152,15 @@ class ScrapeElms:
     def close_browser(self):
         self.driver.quit()
 
+    def countmesse(info):
+        count_num = 0 # 初期カウント数
+        cor_t = datetime.datetime.now() #現在時刻取得
+        for i in range(len(info)):
+            if  cor_t - datetime.timedelta(hours=1) < info[i] :  #一時間前と大小比較
+                count_num += 1
+
+        return count_num 
+
 if __name__ == "__main__":
     elms = ScrapeElms("{ユーザーID}", "{パスワード}")
     elms.login()
