@@ -8,7 +8,7 @@ import datetime
 from selenium.webdriver.common.keys import Keys
 
 class ScrapeElms:
-    '''ELMSのURLでスクレイピングに関する処理を行うクラス
+    '''以下のELMSページでスクレイピングに関する処理を行うクラス
     ・https://www.elms.hokudai.ac.jp/portal/home/information/list
 
     Attributes
@@ -37,7 +37,6 @@ class ScrapeElms:
             パスワード
         '''
         
-        # initialization
         self.ID = ID
         self.PASSWORD = PASSWORD
         self.select_index = 1
@@ -53,20 +52,19 @@ class ScrapeElms:
 
     def page_wait(self, class_name):
         '''ページのロードを待つ関数
-        driver.get()の後呼び出すのがよい．
+        driver.get()の後などページの更新を待ちたい時に呼び出すとよい．
         
         Args
         ----
         class_name : string
             クラスの要素名を指定する．
         '''
-        try:
-            WebDriverWait(self.driver, 15).until(
-                EC.presence_of_element_located((By.CLASS_NAME, class_name)))
-            # WebDriverWait(self.driver,
-            #               15).until(EC.presence_of_all_elements_located) #これだと上手くロード待機できなかった
-        except Exception as ex:
-            print(ex)
+        
+        WebDriverWait(self.driver, 15).until(
+            EC.presence_of_element_located((By.CLASS_NAME, class_name)))
+        # WebDriverWait(self.driver,
+        #               15).until(EC.presence_of_all_elements_located) #これだと上手くロード待機できなかった
+        
 
     def login(self):
         '''ログイン処理をする関数'''
@@ -117,7 +115,6 @@ class ScrapeElms:
             inner_text = time_stamp.text  # get text in tag
             inner_text_dt = datetime.datetime.strptime(
                 inner_text, "%Y/%m/%d %H:%M")  # string to datetime
-            # print(inner_text_dt)
             self.time_stamp_list.append(inner_text_dt)  # add list
 
         return self.time_stamp_list
@@ -144,7 +141,6 @@ class ScrapeElms:
 
             title = self.driver.find_element_by_xpath(xpath)  # find xpath
             inner_text = title.text  # get text in tag
-            # print(inner_text)
             self.title_list.append(inner_text)  # add list
 
         return self.title_list
@@ -152,18 +148,14 @@ class ScrapeElms:
     def close_browser(self):
         self.driver.quit()
 
-    def count_messege(self):
+    def count_message(self):
         '''1時間以内に投稿されたお知らせの数を返す処理
         
         Returns
         -------
         count_num : int
             1時間以内に投稿されたお知らせの数
-
-        note:
-            time_stamp_listを呼びすぎているので冗長な気がする．
         '''
-        self.time_stamp_list = self.get_time_list()
         count_num = 0 # 初期カウント数
         cor_t = datetime.datetime.now() #現在時刻取得
         for i in range(len(self.time_stamp_list)):
