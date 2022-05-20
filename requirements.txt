@@ -1,2 +1,2 @@
 line-bot-sdk==2.2.1
-gunicorn==20.1.0
+selenium==4.1.5

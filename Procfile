@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: python elms_info_push.py

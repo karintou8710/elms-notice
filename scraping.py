@@ -1,5 +1,4 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -46,8 +45,7 @@ class ScrapeElms:
         # start up driver with headless mode
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
-        self.driver = webdriver.Chrome(ChromeDriverManager().install(),
-                                       options=options)
+        self.driver = webdriver.Chrome(options=options)
         # self.driver = webdriver.Chrome(ChromeDriverManager().install()) # start driver with gui mode
 
     def page_wait(self, class_name):
