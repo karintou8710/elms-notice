@@ -36,12 +36,13 @@ def main():
         elms.choose_dropdown_list(2) #グループに関するお知らせのドロップダウンを選択
         times_list = elms.get_time_list() #時間一覧を取得
         print("\n############ 時間一覧 ############\n times_list", times_list)
-        num_of_post = elms.count_messege() # 1時間以内に投稿された数を返す
+        num_of_post = elms.count_message() # 1時間以内に投稿された数を返す
         elms.close_browser()
 
     except Exception as e: #スクレイプ中に起きたエラーは全てここで受ける
         error_message = "エラーが発生したようです．\n内容は以下です．\n---------{}\n---------".format(str(e))
-        line_bot_api.push_message(user_id, messages=error_message)
+        print(error_message)
+        line_bot_api.push_message(user_id, messages=TextSendMessage(text=error_message))
         return
 
     ## LINEにpushする処理
