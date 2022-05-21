@@ -52,7 +52,7 @@ def main():
 
     
     if num_of_post > 0:
-        messages = TextSendMessage(text=(f"ELMSに",num_of_post,"件のメッセージが届いたよ!https://www.hokudai.ac.jp/gakusei/instruction-info/elms/"))
+        messages = TextSendMessage(text=f"ELMSに{num_of_post}件のメッセージが届いたよ!https://www.hokudai.ac.jp/gakusei/instruction-info/elms/")
         line_bot_api.push_message(user_id, messages=messages)
     else:
         messages = TextSendMessage(text="新着メッセージがないよ！")
