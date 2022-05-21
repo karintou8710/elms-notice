@@ -27,8 +27,7 @@ def main():
     user_id = settings.LINE_USER_ID 
     elms_id = settings.ELMS_STUDENT_ID
     elms_password = settings.ELMS_PASSWORD
-    num_of_post = ""
-    error_message = ""
+    num_of_post = 0
     
     try:
         # 実際のスクレイプを行う処理
@@ -42,6 +41,8 @@ def main():
 
     except Exception as e: #スクレイプ中に起きたエラーは全てここで受ける
         error_message = "エラーが発生したようです．\n内容は以下です．\n---------{}\n---------".format(str(e))
+        line_bot_api.push_message(user_id, messages=error_message)
+        return
 
     ## LINEにpushする処理
     # メッセージを作る処理を追加する
