@@ -54,6 +54,7 @@ def main():
     if num_of_post > 0:
         line_bot_api.push_message(user_id, messages=messages)
     else:
+        line_bot_api.push_message(user_id, messages="新着メッセージがないよ！")
         pass
 
 if __name__ == "__main__":
