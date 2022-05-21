@@ -157,7 +157,7 @@ class ScrapeElms:
         count_num = 0 # 初期カウント数
         cor_t = datetime.datetime.now() #現在時刻取得
         for i in range(len(self.time_stamp_list)):
-            if  cor_t - datetime.timedelta(hours=1) < self.time_stamp_list[i] :  #一時間前と大小比較
+            if  cor_t - datetime.timedelta(days=5) < self.time_stamp_list[i] :  #一時間前と大小比較
                 count_num += 1
 
         return count_num 

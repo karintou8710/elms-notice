@@ -50,13 +50,13 @@ def main():
     # error_messageが空でない場合はerrorメッセージをLINE側に送ってほしいです．
     # (空で初期化しているので送るテキストに連結して貰うだけでもいいかもです)
 
-
-    messages = TextSendMessage(text=(f"ELMSに",num_of_post,"件のメッセージが届いたよ!https://www.hokudai.ac.jp/gakusei/instruction-info/elms/"))
     
     if num_of_post > 0:
+        messages = TextSendMessage(text=(f"ELMSに",num_of_post,"件のメッセージが届いたよ!https://www.hokudai.ac.jp/gakusei/instruction-info/elms/"))
         line_bot_api.push_message(user_id, messages=messages)
     else:
-        line_bot_api.push_message(user_id, messages="新着メッセージがないよ！")
+        messages = TextSendMessage(text="新着メッセージがないよ！")
+        line_bot_api.push_message(user_id, messages=messages)
         pass
 
 if __name__ == "__main__":
