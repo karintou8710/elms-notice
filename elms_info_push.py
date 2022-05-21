@@ -34,8 +34,7 @@ def main():
         elms = scraping.ScrapeElms(elms_id, elms_password)
         elms.login()
         elms.choose_dropdown_list(2) #グループに関するお知らせのドロップダウンを選択
-        times_list = elms.get_time_list() #時間一覧を取得
-        print("\n############ 時間一覧 ############\n times_list", times_list)
+        elms.get_time_list() #時間一覧を取得
         num_of_post = elms.count_message() # 1時間以内に投稿された数を返す
         elms.close_browser()
 
@@ -52,12 +51,8 @@ def main():
 
     
     if num_of_post > 0:
+        print("メッセージが届いたよ!")
         messages = TextSendMessage(text=f"ELMSに{num_of_post}件のメッセージが届いたよ!https://www.hokudai.ac.jp/gakusei/instruction-info/elms/")
         line_bot_api.push_message(user_id, messages=messages)
     else:
-        messages = TextSendMessage(text="新着メッセージがないよ！")
-        line_bot_api.push_message(user_id, messages=messages)
-        pass
-
-if __name__ == "__main__":
-    main()
+        print("新着メッセージがないよ！")
