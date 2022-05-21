@@ -6,6 +6,9 @@ from selenium.webdriver.support.select import Select
 import datetime
 from selenium.webdriver.common.keys import Keys
 
+import settings
+
+
 class ScrapeElms:
     '''以下のELMSページでスクレイピングに関する処理を行うクラス
     ・https://www.elms.hokudai.ac.jp/portal/home/information/list
