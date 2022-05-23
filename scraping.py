@@ -163,5 +163,18 @@ class ScrapeElms:
         for i in range(len(self.time_stamp_list)):
             if  cor_t - datetime.timedelta(minutes=settings.INTERVAL_MINUTES) < self.time_stamp_list[i] :  #一時間前と大小比較
                 count_num += 1
+                del self.title_list[i] #新着メッセージ一覧から指定時間範囲以外のものを削除
 
         return count_num 
+
+    def get_title_message(self):
+        message_text = ""
+        list_len = len(self.time_stamp_list)
+        if list_len > 0: #指定時間内に新着情報があれば
+            for i in range(list_len):
+                message_text += self.title_list[i]
+                message_text += "\n\n"
+        else:
+            pass
+
+        return message_text
