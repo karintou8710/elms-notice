@@ -40,8 +40,8 @@ def main():
         elms.choose_dropdown_list(2) #グループに関するお知らせのドロップダウンを選択
         elms.get_time_list() #時間一覧を取得
         num_of_post = elms.count_message() # 1時間以内に投稿された数を返す
-        # elms.get_title_list() #TODO タイトル一覧を取得(スクレイピング)
-        # title_messages = elms.get_message_title_list() #TODO メッセージを成形したものを取得
+        elms.get_title_list() #TODO タイトル一覧を取得(スクレイピング)
+        title_messages = elms.get_message_title_list() #TODO メッセージを成形したものを取得
         elms.close_browser()
 
     except Exception as e: #スクレイプ中に起きたエラーは全てここで受ける

@@ -5,7 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 import datetime
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import settings
 
 
@@ -48,8 +49,8 @@ class ScrapeElms:
         # start up driver with headless mode
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
-        self.driver = webdriver.Chrome(options=options)
-        # self.driver = webdriver.Chrome(ChromeDriverManager().install()) # start driver with gui mode
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)# start driver with gui mode
+        # self.driver = webdriver.Chrome(ChromeDriverManager().install()) #selenium ver3
 
     def page_wait(self, class_name):
         '''ページのロードを待つ関数
