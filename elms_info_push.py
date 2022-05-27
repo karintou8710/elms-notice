@@ -41,7 +41,7 @@ def main():
         elms.get_time_list() #時間一覧を取得
         num_of_post = elms.count_message() # 1時間以内に投稿された数を返す
         elms.get_title_list() #TODO タイトル一覧を取得(スクレイピング)
-        title_messages = elms.get_message_title_list() #TODO メッセージを成形したものを取得
+        title_messages = elms.get_title_message() #TODO メッセージを成形したものを取得
         elms.close_browser()
 
     except Exception as e: #スクレイプ中に起きたエラーは全てここで受ける
