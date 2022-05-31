@@ -161,16 +161,17 @@ class ScrapeElms:
         count_num = 0 # 初期カウント数
         nine_hours = datetime.timedelta(hours=9) #9時間分ずらす
         cor_t = datetime.datetime.now() + nine_hours #現在時刻取得(タイムゾーンを日本とする)
-        for i in range(len(self.time_stamp_list)):
+        for i in reversed(range(len(self.time_stamp_list))):
             if  cor_t - datetime.timedelta(minutes=settings.INTERVAL_MINUTES) < self.time_stamp_list[i] :  #一時間前と大小比較
                 count_num += 1
+            else:
                 del self.title_list[i] #新着メッセージ一覧から指定時間範囲以外のものを削除
 
         return count_num 
 
     def get_title_message(self):
         message_text = ""
-        list_len = len(self.time_stamp_list)
+        list_len = len(self.title_list)
         if list_len > 0: #指定時間内に新着情報があれば
             for i in range(list_len):
                 message_text += self.title_list[i]
